@@ -1,5 +1,6 @@
 package com.eduardo.workshopjavafxjdbc;
 
+import com.eduardo.workshopjavafxjdbc.model.services.DepartmentService;
 import com.eduardo.workshopjavafxjdbc.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,10 @@ public class MainViewController implements Initializable {
 
             mainVBox.getChildren().add(mainMenu);
             mainVBox.getChildren().addAll(newVBox.getChildren());
+
+            DepartmentViewController controller = loader.getController();
+            controller.setDepartmentService(new DepartmentService());
+            controller.updateTableView();
 
         } catch(IOException e) {
             Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
