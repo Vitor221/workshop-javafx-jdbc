@@ -6,6 +6,7 @@ module com.eduardo.workshopjavafxjdbc {
     requires com.dlsc.formsfx;
     requires net.synedra.validatorfx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     opens com.eduardo.workshopjavafxjdbc to javafx.graphics, javafx.fxml;
 
