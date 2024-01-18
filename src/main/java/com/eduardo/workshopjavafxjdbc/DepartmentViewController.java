@@ -1,5 +1,6 @@
 package com.eduardo.workshopjavafxjdbc;
 
+import com.eduardo.workshopjavafxjdbc.listeners.DataChangeListener;
 import com.eduardo.workshopjavafxjdbc.model.entities.Department;
 import com.eduardo.workshopjavafxjdbc.model.services.DepartmentService;
 import com.eduardo.workshopjavafxjdbc.util.Alerts;
@@ -25,7 +26,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class DepartmentViewController implements Initializable {
+public class DepartmentViewController implements Initializable, DataChangeListener {
 
     private DepartmentService service;
 
@@ -87,6 +88,7 @@ public class DepartmentViewController implements Initializable {
             DepartmentFormController controller = loader.getController();
             controller.setDepartment(entity);
             controller.setDepartmentService(new DepartmentService());
+            controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
             Stage dialogStage = new Stage();
@@ -101,4 +103,10 @@ public class DepartmentViewController implements Initializable {
             Alerts.showAlert("IO Exception error", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    @Override
+    public void onDataChanged() {
+        updateTableView();
+    }
+
 }
