@@ -2,6 +2,7 @@ package com.eduardo.workshopjavafxjdbc.model.dao.impl;
 
 import com.eduardo.workshopjavafxjdbc.db.DB;
 import com.eduardo.workshopjavafxjdbc.db.DbException;
+import com.eduardo.workshopjavafxjdbc.db.DbIntegrityException;
 import com.eduardo.workshopjavafxjdbc.model.dao.DepartmentDao;
 import com.eduardo.workshopjavafxjdbc.model.entities.Department;
 
@@ -69,12 +70,12 @@ public class DepartmentDaoJDBC implements DepartmentDao {
     public void deleteById(Integer id) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("DELETE department WHERE Id = ?");
+            st = conn.prepareStatement("DELETE FROM department WHERE Id = ?");
             st.setInt(1, id);
 
             st.executeUpdate();
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            throw new DbIntegrityException(e.getMessage());
         }
         finally {
             DB.closeStatement(st);
