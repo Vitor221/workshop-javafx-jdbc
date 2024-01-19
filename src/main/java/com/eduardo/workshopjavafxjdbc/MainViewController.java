@@ -1,6 +1,8 @@
 package com.eduardo.workshopjavafxjdbc;
 
+import com.eduardo.workshopjavafxjdbc.model.entities.Seller;
 import com.eduardo.workshopjavafxjdbc.model.services.DepartmentService;
+import com.eduardo.workshopjavafxjdbc.model.services.SellerService;
 import com.eduardo.workshopjavafxjdbc.util.Alerts;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +32,10 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void onMenuItemSellerAction() {
-        System.out.println("onMenuItemSellerAction");
+        viewLoad("gui/seller-view.fxml", (SellerViewController controller) -> {
+            controller.setSellerService(new SellerService());
+            controller.updateTableView();
+        });
     }
 
     @FXML
