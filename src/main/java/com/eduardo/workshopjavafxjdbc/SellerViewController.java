@@ -3,6 +3,7 @@ package com.eduardo.workshopjavafxjdbc;
 import com.eduardo.workshopjavafxjdbc.db.DbIntegrityException;
 import com.eduardo.workshopjavafxjdbc.listeners.DataChangeListener;
 import com.eduardo.workshopjavafxjdbc.model.entities.Seller;
+import com.eduardo.workshopjavafxjdbc.model.services.DepartmentService;
 import com.eduardo.workshopjavafxjdbc.model.services.SellerService;
 import com.eduardo.workshopjavafxjdbc.util.Alerts;
 import com.eduardo.workshopjavafxjdbc.util.Utils;
@@ -113,7 +114,8 @@ public class SellerViewController implements Initializable, DataChangeListener {
 
             SellerFormController controller = loader.getController();
             controller.setSeller(entity);
-            controller.setSellerService(new SellerService());
+            controller.setServices(new SellerService(), new DepartmentService());
+            controller.loadAssociatedObjects();
             controller.subscribeDataChangeListener(this);
             controller.updateFormData();
 
@@ -126,6 +128,7 @@ public class SellerViewController implements Initializable, DataChangeListener {
             dialogStage.showAndWait();
 
         } catch (IOException e) {
+            e.printStackTrace();
             Alerts.showAlert("IO Exception error", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
